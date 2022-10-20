@@ -1,7 +1,8 @@
 
 import './App.css';
 import { useState } from 'react';
-import { uploadAudio } from './api';
+import { uploadAudio, uploadImage, uploadVideo } from './api';
+import ReactPlayer from 'react-player';
 
 function App() {
 
@@ -58,9 +59,19 @@ function App() {
   };
 
 
-  const onClick = () => {
+  const onClickAudio = () => {
     uploadAudio({
       "audio": base64URL
+    }, onLoad)
+  }
+  const onClickVideo = () => {
+    uploadVideo({
+      "video": base64URL
+    }, onLoad)
+  }
+  const onClickImage = () => {
+    uploadImage({
+      "image": base64URL
     }, onLoad)
   }
 
@@ -69,12 +80,39 @@ function App() {
   return (
     <div className="App">
       <main>
+
+        <h1>Audio Upload</h1>
       <div>
         <input type="file" name="file" onChange={handleFileInputChange} />
 
-        <button onClick={onClick}>Submit</button>
+        <button onClick={onClickAudio}>Submit</button>
+      </div>
+
+
+      <h1>Video Upload</h1>
+      <div>
+        <input type="file" name="file" onChange={handleFileInputChange} />
+
+        <button onClick={onClickVideo}>Submit</button>
+      </div>
+
+      <h1>Image Upload</h1>
+      <div>
+        <input type="file" name="file" onChange={handleFileInputChange} />
+
+        <button onClick={onClickImage}>Submit</button>
       </div>
       </main>
+
+
+      <div className='player-wrapper'>
+        <ReactPlayer
+          className='react-player'
+          url='https://www.youtube.com/watch?v=ysz5S6PUM-U'
+          width='100%'
+          height='100%'
+        />
+      </div>
     </div>
   );
 }
